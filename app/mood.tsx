@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { useRouter } from 'expo-router';
 
-// Pure helper — lives outside the component so it doesn't get
-// recreated on every render.
 function getAnxietyLabel(value: number): string {
   if (value <= 2) return 'Very low';
   if (value <= 4) return 'Low';
@@ -13,9 +12,7 @@ function getAnxietyLabel(value: number): string {
 }
 
 export default function MoodScreen() {
-  // useState<number> — the TypeScript generic tells the compiler this
-  // state can only ever hold a number. The setter (setAnxietyLevel)
-  // is what causes the screen to re-render when the slider moves.
+  const router = useRouter();
   const [anxietyLevel, setAnxietyLevel] = useState<number>(5);
 
   return (
@@ -27,7 +24,6 @@ export default function MoodScreen() {
         Rate your anxiety level
       </Text>
 
-      {/* These two update live on every slider drag — watch them change! */}
       <Text className="text-orange-400 text-6xl font-bold text-center mb-1">
         {anxietyLevel}
       </Text>
@@ -53,11 +49,7 @@ export default function MoodScreen() {
 
       <TouchableOpacity
         className="bg-orange-500 rounded-2xl py-4 items-center active:opacity-70"
-        onPress={() => {
-          // Phase 2: this will navigate forward and pass anxietyLevel
-          // as a route param. For now, check the terminal to confirm.
-          console.log('Anxiety level selected:', anxietyLevel);
-        }}
+        onPress={() => router.push('/')}
       >
         <Text className="text-white text-lg font-semibold">
           {"Let's go"}

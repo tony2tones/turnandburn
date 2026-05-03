@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Learn and Burn",
-    "slug": "howToRoll",
+    "slug": "learn-and-burn",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "howtoroll",
+    "scheme": "learnandburn",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

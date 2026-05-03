@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { quotes } from '@/constants/quotes';
+import { Button } from '@react-navigation/elements';
 
 // Called once to pick a random quote — passing a function reference
 // to useState so it only runs on the first render, not every re-render.
@@ -15,19 +16,6 @@ export default function SplashScreen() {
   // useState with lazy initialisation — the function runs once and
   // the result is stored. No setter needed; we just display it.
   const [quote] = useState(getRandomQuote);
-
-  // useEffect with an empty [] dependency array runs once when the
-  // component first appears on screen (called "mounting").
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // router.replace removes the splash from the nav stack so the
-      // user can't press back to get to it again.
-      router.replace('/mood');
-    }, 2500);
-
-    // Cleanup: if the component unmounts before 2.5s, cancel the timer.
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <View className="flex-1 items-center justify-center bg-slate-900 px-8">
@@ -44,6 +32,8 @@ export default function SplashScreen() {
       <Text className="text-slate-400 text-sm mt-3 text-center">
         — {quote.author}
       </Text>
+
+      <Button onPress={() => router.replace('/mood')}>how are you feeling today?</Button>
     </View>
   );
 }
