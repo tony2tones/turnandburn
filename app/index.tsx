@@ -1,39 +1,52 @@
-import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { quotes } from '@/constants/quotes';
-import { Button } from '@react-navigation/elements';
 
-// Called once to pick a random quote — passing a function reference
-// to useState so it only runs on the first render, not every re-render.
-// This is called "lazy initialization".
 function getRandomQuote() {
   const index = Math.floor(Math.random() * quotes.length);
   return quotes[index];
 }
 
 export default function SplashScreen() {
-  // useState with lazy initialisation — the function runs once and
-  // the result is stored. No setter needed; we just display it.
   const [quote] = useState(getRandomQuote);
 
   return (
-    <View className="flex-1 items-center justify-center bg-slate-900 px-8">
-      {/* Placeholder logo — a styled View acting as a circle */}
-      <View className="w-24 h-24 rounded-full bg-orange-500 mb-8" />
+    <View className="flex-1 bg-slate-900 px-8 py-12 items-center justify-between">
 
-      <Text className="text-white text-3xl font-bold mb-10 text-center">
-        Learn and Burn
-      </Text>
+      {/* Top: logo + title + quote */}
+      <View className="flex-1 items-center justify-center gap-4">
+        <View className="w-24 h-24 rounded-full bg-orange-500" />
 
-      <Text className="text-slate-300 text-lg italic text-center leading-7">
-        {`"${quote.text}"`}
-      </Text>
-      <Text className="text-slate-400 text-sm mt-3 text-center">
-        — {quote.author}
-      </Text>
+        <Text className="text-white text-3xl font-bold text-center">
+          Learn and Burn
+        </Text>
 
-      <Button onPress={() => router.replace('/mood')}>how are you feeling today?</Button>
+        <Text className="text-slate-300 text-lg italic text-center leading-7">
+          {`"${quote.text}"`}
+        </Text>
+        <Text className="text-slate-400 text-sm text-center">
+          — {quote.author}
+        </Text>
+      </View>
+
+      {/* Bottom: action buttons */}
+      <View className="w-full flex-col gap-3">
+        <Pressable
+          className="bg-orange-500 rounded-xl py-4 items-center active:opacity-80"
+          onPress={() => router.replace('/mood')}
+        >
+          <Text className="text-white text-base font-semibold">How are you feeling today?</Text>
+        </Pressable>
+
+        <Pressable
+          className="border border-slate-600 rounded-xl py-4 items-center active:opacity-80"
+          onPress={() => router.replace('/home')}
+        >
+          <Text className="text-slate-300 text-base font-semibold">Start burning!</Text>
+        </Pressable>
+      </View>
+
     </View>
   );
 }
